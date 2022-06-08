@@ -9,36 +9,48 @@ namespace Employeewage
     internal class Employeewaage
     {
 
-        public int Emppresent = 1;
-        public int FullTime = 1;
-        public int wage_per_hour = 20;
-        public int Full_day_hour = 8;
-        public int PartTime_Day_Hour = 4;
-        public int Dailywage = 0;
-        public void CheckEmppresentabsent()
+        public const float EmpWagePerHour = 20;
+        public const int FullTime_WorkingHrs_PerDay = 8;
+        public const int PartTime_WorkingHrs_PerDay = 4;
+        public const int MAX_WORKING_HRS = 100;
+        public const int MAX_WORKING_DAYS = 20;
+        public const int IS_FULL_TIME = 1;
+        public const int IS_PART_TIME = 2;
+        public const int IS_ABSENT = 0;
+        float EmpDailyWage = 0;
+        public float TotalWage = 0;
+        public int IsEmployeePresent()
         {
-            Random Empcheck = new Random(); //Random=class Empcheck=object
-            int Value = Empcheck.Next(0, 2); //Next=method
-            if (Value == Emppresent)
+            return new Random().Next() % 3;
+        }
+        public void CalucalteWage()
+        {
+            int Daynumber = 1;
+            int EmpworkingHrs = 0;
+            int TotalWorkingHrs = 0;
+            while (Daynumber <= MAX_WORKING_DAYS && TotalWorkingHrs <= MAX_WORKING_HRS)
             {
-                Random Timecheck = new Random();
-                int workingHours = Timecheck.Next(0, 2);
-                if (Value == Emppresent)
+                switch (IsEmployeePresent())
                 {
-                    Dailywage = wage_per_hour * Full_day_hour;
-                    Console.WriteLine("Employee is present and his wage is* " + Dailywage);
+                    case IS_ABSENT:
+                        EmpworkingHrs = 0;
+                        break;
+                    case IS_PART_TIME:
+                        EmpworkingHrs = PartTime_WorkingHrs_PerDay;
+                        break;
+                    case IS_FULL_TIME:
+                        EmpworkingHrs = FullTime_WorkingHrs_PerDay;
+                        break;
                 }
-                else
-                {
-                    Dailywage = wage_per_hour * PartTime_Day_Hour;
-                    Console.WriteLine("Employee is present for Parttime* " + Dailywage);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Employee is Absent");
-            }
+                EmpDailyWage = EmpworkingHrs * EmpWagePerHour;
 
+                TotalWage += EmpDailyWage;
+                Daynumber++;
+                TotalWorkingHrs += EmpworkingHrs;
+
+
+            }
+            Console.WriteLine("Total Working days : " + (Daynumber) + "\nTotal Working hours : " + (TotalWorkingHrs) + "\nTotal Wage :" + (TotalWage));
         }
     }
 }
