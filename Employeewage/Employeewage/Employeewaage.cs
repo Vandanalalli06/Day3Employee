@@ -9,35 +9,35 @@ namespace Employeewage
     internal class Employeewaage
     {
 
-        public const int Is_Fulltime = 1;
-        public const int Is_Parttime = 2;
-        public const int Is_Absent = 0;
-        public int EmpDailywage = 0;
-        public int Empwage = 20;
-
-        public int IsEmployeePresent()
+        public int Emppresent = 1;
+        public int FullTime = 1;
+        public int wage_per_hour = 20;
+        public int Full_day_hour = 8;
+        public int PartTime_Day_Hour = 4;
+        public int Dailywage = 0;
+        public void CheckEmppresentabsent()
         {
-            return new Random().Next(0, 3);
-        }
-
-        public void CalculateEmpwage()
-        {
-            int Empworkinghours = 8;
-
-            switch (IsEmployeePresent())
+            Random Empcheck = new Random(); //Random=class Empcheck=object
+            int Value = Empcheck.Next(0, 2); //Next=method
+            if (Value == Emppresent)
             {
-                case Is_Fulltime:
-                    Empworkinghours = 8;
-                    break;
-                case Is_Parttime:
-                    Empworkinghours = 4;
-                    break;
-                case Is_Absent:
-                    Empworkinghours = 0;
-                    break;
+                Random Timecheck = new Random();
+                int workingHours = Timecheck.Next(0, 2);
+                if (Value == Emppresent)
+                {
+                    Dailywage = wage_per_hour * Full_day_hour;
+                    Console.WriteLine("Employee is present and his wage is* " + Dailywage);
+                }
+                else
+                {
+                    Dailywage = wage_per_hour * PartTime_Day_Hour;
+                    Console.WriteLine("Employee is present for Parttime* " + Dailywage);
+                }
             }
-            EmpDailywage = Empworkinghours * Empwage;
-            Console.WriteLine("Total Employee Wage =(0)", EmpDailywage);
+            else
+            {
+                Console.WriteLine("Employee is Absent");
+            }
 
         }
     }
