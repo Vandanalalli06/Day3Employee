@@ -6,7 +6,7 @@
     {
             Console.WriteLine("Welcome to Employee wage Problem");
             Employeewaage employeewage =new Employeewaage();
-            employeewage.CheckParttimeEmpwage();
+            employeewage.CalculateEmpwage();
             
     }
 }

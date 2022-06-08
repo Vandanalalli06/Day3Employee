@@ -9,36 +9,36 @@ namespace Employeewage
     internal class Employeewaage
     {
 
-        public int EmpPresent = 1;
-        public int Fulltime = 1;
-        public int Wage_Per_Hour = 20;
-        public int Fullday_Hour = 8;
-        public int Parttimeday_Hour = 4;
-        public int Dailywage = 0;
-        public void CheckParttimeEmpwage()
+        public const int Is_Fulltime = 1;
+        public const int Is_Parttime = 2;
+        public const int Is_Absent = 0;
+        public int EmpDailywage = 0;
+        public int Empwage = 20;
+
+        public int IsEmployeePresent()
         {
-            Random Empcheck = new Random();
-            int value = Empcheck.Next(0, 2);
-            if (value == EmpPresent)
-            {
-                Random Timecheck = new Random();
-                int WorkingHours = Timecheck.Next(0, 2);
-                if (WorkingHours == Fulltime)
-                {
-                    Dailywage = Fullday_Hour * Wage_Per_Hour;
-                    Console.WriteLine("Employee is present in full time and Dailywage={0)", Dailywage);
-                }
-                else
-                {
-                    Dailywage -= Parttimeday_Hour * Wage_Per_Hour;
-                    Console.WriteLine("Employee is present in part time and Dailywage={0)", Dailywage);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Employee is Absent");
-            }
+            return new Random().Next(0, 3);
         }
 
+        public void CalculateEmpwage()
+        {
+            int Empworkinghours = 8;
+
+            switch (IsEmployeePresent())
+            {
+                case Is_Fulltime:
+                    Empworkinghours = 8;
+                    break;
+                case Is_Parttime:
+                    Empworkinghours = 4;
+                    break;
+                case Is_Absent:
+                    Empworkinghours = 0;
+                    break;
+            }
+            EmpDailywage = Empworkinghours * Empwage;
+            Console.WriteLine("Total Employee Wage =(0)", EmpDailywage);
+
+        }
     }
 }
